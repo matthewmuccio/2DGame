@@ -19,6 +19,7 @@ public class Application extends JFrame
 		// Sets properties of JFrame window.
 		this.setSize(2000, 1500);
 		this.setTitle("2D Game");
+		//this.setResizable(false);
 		
 		// Application will close when user clicks on the close button. (Non-default behavior)
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
