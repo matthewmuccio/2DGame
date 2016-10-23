@@ -6,11 +6,14 @@ import java.util.ArrayList;
 // Player represents a sprite that the user controls.
 // Contains image and coordinate properties of the sprite.
 // key() methods control the sprite's movement.
-public class Player extends Shot
+public class Player extends Entity
 {
 	private int dx;
 	private int dy;
+	// All playerShots fired by the Player are stored in this list.
 	private ArrayList<PlayerShot> playerShots;
+	
+	private final int PLAYER_SPEED = 5;
 	
 	// Default Player constructor.
 	public Player(int x, int y)
@@ -35,6 +38,15 @@ public class Player extends Shot
 	{
 		x += dx;
 		y += dy;
+		
+		if (x < PLAYER_SPEED)
+		{
+			x = PLAYER_SPEED;
+		}
+		if (y < PLAYER_SPEED)
+		{
+			y = PLAYER_SPEED;
+		}
 	}
 	
 	// Returns the ArrayList of PlayerShots, called from Board class.
@@ -65,24 +77,26 @@ public class Player extends Shot
 		}
 		if (key == KeyEvent.VK_A)
 		{
-			dx = -5;
+			dx = -PLAYER_SPEED;
 		}
 		if (key == KeyEvent.VK_D)
 		{
-			dx = 5;
+			dx = PLAYER_SPEED;
 		}
 		if (key == KeyEvent.VK_W)
 		{
-			dy = -5;
+			dy = -PLAYER_SPEED;
 		}
 		if (key == KeyEvent.VK_S)
 		{
-			dy = 5;
+			dy = PLAYER_SPEED;
 		}
 	}
 	
 	// Fires shot when user presses Space key.
 	// Creates new PlayerShot object and adds it to the playerShots ArrayList.
+	// Remains in the list until it collides with an Enemy or
+	// goes out of the JFrame.
 	public void shoot()
 	{
 		PlayerShot playerShot = new PlayerShot(x + width, y + height/2);
